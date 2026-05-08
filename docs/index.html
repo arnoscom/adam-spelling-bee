@@ -1,352 +1,88 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Adam Spelling Bee</title>
 <style>
-body{font-family:Arial,sans-serif;background:#f4f4f4;text-align:center;padding:20px}
-.container{max-width:900px;margin:auto;background:white;padding:20px;border-radius:20px;box-shadow:0 0 10px rgba(0,0,0,.1)}
-textarea{width:100%;height:320px;font-size:18px;padding:10px}
-button{padding:12px 20px;margin:8px;font-size:20px;border:none;border-radius:10px;cursor:pointer}
-.start{background:#007aff;color:white}
-.correct{background:#34c759;color:white}
-.wrong{background:#ff3b30;color:white}
-.speak{background:#5856d6;color:white}
-.next{background:#ff9500;color:white}
-.pause{background:#444;color:white}
-#wordBox{font-size:60px;font-weight:bold;margin:25px;padding:35px;background:#eee;border-radius:20px;letter-spacing:2px;min-height:80px}
-#timer{font-size:40px;color:#ff3b30;margin:20px}
-.score{font-size:26px;margin-top:20px}
-#wrongWords{margin-top:30px;background:#fff0f0;padding:20px;border-radius:15px;text-align:left}
-#wrongList{font-size:22px;line-height:1.8}
-</style>
-</head>
-<body>
-<div class="container">
-<h1>🎤 Adam Spelling Bee</h1>
+body{font-family:Arial;background:#f4f4f4;text-align:center;padding:20px}
+.container{max-width:1000px;margin:auto;background:white;padding:20px;border-radius:20px}
+.wordTable{width:100%;border-collapse:collapse}
+.wordTable td{border:1px solid #ccc;padding:8px;font-size:20px}
+button{padding:12px 20px;margin:8px;font-size:18px}
+#wordBox{font-size:42px;font-weight:bold;background:linear-gradient(135deg,#4facfe,#00f2fe);color:white;padding:30px;border-radius:20px;margin:20px;line-height:1.4;overflow:visible;white-space:normal}
+#timer{font-size:40px;color:red}
+</style></head><body><div class="container">
+<h1>Adam Spelling Bee</h1>
 
-<textarea id="words">Hexagon
-Vegetables
-Multiple
-Country
-Tissue
-Exercise
-Finally
-Graphic
-Magazine
-Volume
-Manufacture
-Magnetic
-Hundredth
-Because
-Yesterday
-Mosque
-Stomach
-Pattern
-Motion
-Money
-Survive
-Hospital
-Liquid
-Trouble
-Sphere
-Cultural
-Subtraction
-Fragrance
-Strange
-Manners
-Diamond
-Success
-Luggage
-Crowded
-Problem
-Complain
-Calendar
-Accident
-Bicycle
-Educate
-Address
-Scissors
-Supermarket
-Squeeze
-Choice
-Moment
-Charcoal
-Snuggle
-Publisher
-Creature
-Structure
-Capture
-Handlebars
-Friendship
-Grateful
-Transport
-Election
-Perhaps
-Advance
-Identify
-Robotics
-Waterproof
-Kingdom
-Blindfold
-Spotlight
-Familiar
-Broccoli
-Scheme
-Yogurt
-Macaroni
-Washable
-Primary
-Electric
-Various
-Personal
-Average
-Conduct
-Bilingual
-Maintain
-Ourselves
-Thermometer
-Temperature
-Current
-Digestive
-Carnivore
-Herbivore
-Evaporation
-Population
-Imagination
-Hibernation
-Manuscript
-Acknowledge
-Central
-Chuckle
-Unfortunately
-Earthquake
-Pitcher
-Particle
-Cartridge
-Academic
-Caution
-Bridges
-Vitamin
-Calculation
-Engineer
-Technology
-Electricity
-Generate
-Parallel
-University
-Lightning
-Figures
-Swelling
-Available
-Disposable
-Syllable
-Mysteries
-Argument
-Interaction
-Multiplication
-Camouflage
-Predator
-Nightmare
-Signature
-Furniture
-Departure
-Continent
-Architecture
-Leisure
-Iceberg
-Courage
-Currency
-Landscape
-Probably
-Dimension
-Purchase
-Ornament
-Quantity
-Although
-Invitation
-Increase
-Stretched
-Suggest
-Adoption
-Immature
-Corruption
-Affection
-Construction
-Profession
-Inspection
-Staircase
-Burden
-Surgeon
-Merchant
-Generalize</textarea>
-
-<br><br>
-
-<label>Timer per word:</label>
-<input type="number" id="timeInput" value="10">
-
-<br><br>
-
-<button class="start" onclick="startGame()">Start Training</button>
-
+<details><summary style="font-size:24px">📚 Show / Hide Words</summary><table class='wordTable'><tr><td>Hexagon</td><td>Educate</td><td>Maintain</td><td>Argument</td></tr><tr><td>Vegetables</td><td>Address</td><td>Ourselves</td><td>Interaction</td></tr><tr><td>Multiple</td><td>Scissors</td><td>Thermometer</td><td>Multiplication</td></tr><tr><td>Country</td><td>Supermarket</td><td>Temperature</td><td>Camouflage</td></tr><tr><td>Tissue</td><td>Squeeze</td><td>Current</td><td>Predator</td></tr><tr><td>Exercise</td><td>Choice</td><td>Digestive</td><td>Nightmare</td></tr><tr><td>Finally</td><td>Moment</td><td>Carnivore</td><td>Signature</td></tr><tr><td>Graphic</td><td>Charcoal</td><td>Herbivore</td><td>Furniture</td></tr><tr><td>Magazine</td><td>Snuggle</td><td>Evaporation</td><td>Departure</td></tr><tr><td>Volume</td><td>Publisher</td><td>Population</td><td>Continent</td></tr><tr><td>Manufacture</td><td>Creature</td><td>Imagination</td><td>Architecture</td></tr><tr><td>Magnetic</td><td>Structure</td><td>Hibernation</td><td>Leisure</td></tr><tr><td>Hundredth</td><td>Capture</td><td>Manuscript</td><td>Iceberg</td></tr><tr><td>Because</td><td>Handlebars</td><td>Acknowledge</td><td>Courage</td></tr><tr><td>Yesterday</td><td>Friendship</td><td>Central</td><td>Currency</td></tr><tr><td>Mosque</td><td>Grateful</td><td>Chuckle</td><td>Landscape</td></tr><tr><td>Stomach</td><td>Transport</td><td>Unfortunately</td><td>Probably</td></tr><tr><td>Pattern</td><td>Election</td><td>Earthquake</td><td>Dimension</td></tr><tr><td>Motion</td><td>Perhaps</td><td>Pitcher</td><td>Purchase</td></tr><tr><td>Money</td><td>Advance</td><td>Particle</td><td>Ornament</td></tr><tr><td>Survive</td><td>Identify</td><td>Cartridge</td><td>Quantity</td></tr><tr><td>Hospital</td><td>Robotics</td><td>Academic</td><td>Although</td></tr><tr><td>Liquid</td><td>Waterproof</td><td>Caution</td><td>Invitation</td></tr><tr><td>Trouble</td><td>Kingdom</td><td>Bridges</td><td>Increase</td></tr><tr><td>Sphere</td><td>Blindfold</td><td>Vitamin</td><td>Stretched</td></tr><tr><td>Cultural</td><td>Spotlight</td><td>Calculation</td><td>Suggest</td></tr><tr><td>Subtraction</td><td>Familiar</td><td>Engineer</td><td>Adoption</td></tr><tr><td>Fragrance</td><td>Broccoli</td><td>Technology</td><td>Immature</td></tr><tr><td>Strange</td><td>Scheme</td><td>Electricity</td><td>Corruption</td></tr><tr><td>Manners</td><td>Yogurt</td><td>Generate</td><td>Affection</td></tr><tr><td>Diamond</td><td>Macaroni</td><td>Parallel</td><td>Construction</td></tr><tr><td>Success</td><td>Washable</td><td>University</td><td>Profession</td></tr><tr><td>Luggage</td><td>Primary</td><td>Lightning</td><td>Inspection</td></tr><tr><td>Crowded</td><td>Electric</td><td>Figures</td><td>Staircase</td></tr><tr><td>Problem</td><td>Various</td><td>Swelling</td><td>Burden</td></tr><tr><td>Complain</td><td>Personal</td><td>Available</td><td>Surgeon</td></tr><tr><td>Calendar</td><td>Average</td><td>Disposable</td><td>Merchant</td></tr><tr><td>Accident</td><td>Conduct</td><td>Syllable</td><td>Generalize</td></tr><tr><td>Bicycle</td><td>Bilingual</td><td>Mysteries</td><td></td></tr></table></details>
+<br><label>Timer:</label><select id="timeInput"><option value="3" >3</option><option value="4" >4</option><option value="5" >5</option><option value="6" >6</option><option value="7" >7</option><option value="8" >8</option><option value="9" >9</option><option value="10" selected>10</option><option value="11" >11</option><option value="12" >12</option><option value="13" >13</option><option value="14" >14</option><option value="15" >15</option></select><br><br>
+<button onclick="startGame()">Start</button>
 <div id="wordBox">Press Start</div>
-
 <div id="timer">⏳ 0</div>
-
-<button class="speak" onclick="speakWord()">🔊 Repeat</button>
-<button class="pause" id="pauseBtn" onclick="togglePause()">⏸ Pause</button>
-<button class="correct" onclick="markCorrect()">✅ Correct</button>
-<button class="wrong" onclick="markWrong()">❌ Wrong</button>
-<button class="next" onclick="skipWord()">🔁 Skip For Later</button>
-
-<div class="score">
-✅ Correct: <span id="correctCount">0</span><br>
-❌ Wrong: <span id="wrongCount">0</span><br>
-📚 Remaining: <span id="remainingCount">0</span>
+<button onclick="speakWord()">🔊 Repeat</button>
+<button id="pauseBtn" onclick="togglePause()">⏸ Pause</button>
+<button onclick="markCorrect()">✅ Correct</button>
+<button onclick="markWrong()">❌ Wrong</button>
+<button onclick="skipWord()">🔁 Skip</button>
+<div style="font-size:24px">Correct: <span id="correctCount">0</span><br>Wrong: <span id="wrongCount">0</span><br>Remaining: <span id="remainingCount">0</span></div>
+<div style="margin-top:20px;text-align:left"><h2>Wrong Words</h2><div id="wrongList">No mistakes yet</div></div>
 </div>
-
-<div id="wrongWords">
-<h2>❌ Wrong Words</h2>
-<div id="wrongList">No mistakes yet</div>
-</div>
-
-</div>
-
 <script>
-let words = [];
-let remainingWords = [];
-let currentWord = "";
+let words=['Hexagon', 'Vegetables', 'Multiple', 'Country', 'Tissue', 'Exercise', 'Finally', 'Graphic', 'Magazine', 'Volume', 'Manufacture', 'Magnetic', 'Hundredth', 'Because', 'Yesterday', 'Mosque', 'Stomach', 'Pattern', 'Motion', 'Money', 'Survive', 'Hospital', 'Liquid', 'Trouble', 'Sphere', 'Cultural', 'Subtraction', 'Fragrance', 'Strange', 'Manners', 'Diamond', 'Success', 'Luggage', 'Crowded', 'Problem', 'Complain', 'Calendar', 'Accident', 'Bicycle', 'Educate', 'Address', 'Scissors', 'Supermarket', 'Squeeze', 'Choice', 'Moment', 'Charcoal', 'Snuggle', 'Publisher', 'Creature', 'Structure', 'Capture', 'Handlebars', 'Friendship', 'Grateful', 'Transport', 'Election', 'Perhaps', 'Advance', 'Identify', 'Robotics', 'Waterproof', 'Kingdom', 'Blindfold', 'Spotlight', 'Familiar', 'Broccoli', 'Scheme', 'Yogurt', 'Macaroni', 'Washable', 'Primary', 'Electric', 'Various', 'Personal', 'Average', 'Conduct', 'Bilingual', 'Maintain', 'Ourselves', 'Thermometer', 'Temperature', 'Current', 'Digestive', 'Carnivore', 'Herbivore', 'Evaporation', 'Population', 'Imagination', 'Hibernation', 'Manuscript', 'Acknowledge', 'Central', 'Chuckle', 'Unfortunately', 'Earthquake', 'Pitcher', 'Particle', 'Cartridge', 'Academic', 'Caution', 'Bridges', 'Vitamin', 'Calculation', 'Engineer', 'Technology', 'Electricity', 'Generate', 'Parallel', 'University', 'Lightning', 'Figures', 'Swelling', 'Available', 'Disposable', 'Syllable', 'Mysteries', 'Argument', 'Interaction', 'Multiplication', 'Camouflage', 'Predator', 'Nightmare', 'Signature', 'Furniture', 'Departure', 'Continent', 'Architecture', 'Leisure', 'Iceberg', 'Courage', 'Currency', 'Landscape', 'Probably', 'Dimension', 'Purchase', 'Ornament', 'Quantity', 'Although', 'Invitation', 'Increase', 'Stretched', 'Suggest', 'Adoption', 'Immature', 'Corruption', 'Affection', 'Construction', 'Profession', 'Inspection', 'Staircase', 'Burden', 'Surgeon', 'Merchant', 'Generalize'];
+let remainingWords=[];
+let currentWord="";
 let timer;
-let timeLeft = 0;
-let correct = 0;
-let wrong = 0;
-let wrongWords = [];
-let paused = false;
+let timeLeft=0;
+let correct=0;
+let wrong=0;
+let wrongWords=[];
+let paused=false;
 
 function startGame(){
-words = document.getElementById("words").value
-.split("\n")
-.map(w => w.trim())
-.filter(w => w !== "");
-
-remainingWords = [...words];
-
-correct = 0;
-wrong = 0;
-wrongWords = [];
-paused = false;
-
-updateScore();
-updateWrongList();
-
+if(words.length===0){alert('No words loaded');return;}
+remainingWords=[...words];
+correct=0;wrong=0;wrongWords=[];
+updateScore();updateWrongList();
 nextWord();
 }
 
 function nextWord(){
 clearInterval(timer);
-
-if(remainingWords.length === 0){
-document.getElementById("wordBox").innerText = "🎉 All Words Finished";
-document.getElementById("timer").innerText = "";
+if(remainingWords.length===0){
+document.getElementById('wordBox').innerText='🎉 Finished';
 return;
 }
-
-let randomIndex = Math.floor(Math.random() * remainingWords.length);
-currentWord = remainingWords[randomIndex];
-remainingWords.splice(randomIndex,1);
-
-document.getElementById("wordBox").innerText = currentWord;
-
-updateScore();
+let i=Math.floor(Math.random()*remainingWords.length);
+currentWord=remainingWords[i];
+remainingWords.splice(i,1);
+document.getElementById('wordBox').innerText=currentWord;
 speakWord();
-startTimer();
-}
-
-function skipWord(){
-remainingWords.push(currentWord);
-nextWord();
-}
-
-function speakWord(){
-speechSynthesis.cancel();
-
-let utterance = new SpeechSynthesisUtterance(currentWord);
-utterance.lang = "en-US";
-utterance.rate = 0.85;
-
-speechSynthesis.speak(utterance);
-}
-
-function startTimer(){
-paused = false;
-document.getElementById("pauseBtn").innerText = "⏸ Pause";
-
-timeLeft = parseInt(document.getElementById("timeInput").value);
-document.getElementById("timer").innerText = "⏳ " + timeLeft;
-
-timer = setInterval(() => {
-
+timeLeft=parseInt(document.getElementById('timeInput').value)||10;
+document.getElementById('timer').innerText='⏳ '+timeLeft;
+timer=setInterval(function(){
 if(paused) return;
-
 timeLeft--;
-document.getElementById("timer").innerText = "⏳ " + timeLeft;
-
-if(timeLeft <= 0){
+document.getElementById('timer').innerText='⏳ '+timeLeft;
+if(timeLeft<=0){
 clearInterval(timer);
-
 wrong++;
 wrongWords.push(currentWord);
-
-updateWrongList();
 updateScore();
-
+updateWrongList();
 nextWord();
 }
-
 },1000);
-}
-
-function togglePause(){
-paused = !paused;
-
-if(paused){
-document.getElementById("pauseBtn").innerText = "▶ Continue";
-} else {
-document.getElementById("pauseBtn").innerText = "⏸ Pause";
-}
-}
-
-function markCorrect(){
-correct++;
 updateScore();
-nextWord();
 }
 
-function markWrong(){
-wrong++;
-wrongWords.push(currentWord);
-
-updateWrongList();
-updateScore();
-
-nextWord();
-}
-
-function updateScore(){
-document.getElementById("correctCount").innerText = correct;
-document.getElementById("wrongCount").innerText = wrong;
-document.getElementById("remainingCount").innerText = remainingWords.length;
-}
-
+function skipWord(){remainingWords.push(currentWord);nextWord();}
+function speakWord(){speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(currentWord);u.lang='en-US';u.rate=.85;speechSynthesis.speak(u);}
+function togglePause(){paused=!paused;document.getElementById('pauseBtn').innerText=paused?'▶ Continue':'⏸ Pause';}
+function markCorrect(){clearInterval(timer);correct++;updateScore();nextWord();}
+function markWrong(){clearInterval(timer);wrong++;wrongWords.push(currentWord);updateScore();updateWrongList();nextWord();}
+function updateScore(){document.getElementById('correctCount').innerText=correct;document.getElementById('wrongCount').innerText=wrong;document.getElementById('remainingCount').innerText=remainingWords.length;}
 function updateWrongList(){
-if(wrongWords.length === 0){
-document.getElementById("wrongList").innerText = "No mistakes yet";
+if(wrongWords.length===0){
+document.getElementById('wrongList').innerHTML='No mistakes yet';
 }else{
-document.getElementById("wrongList").innerHTML = wrongWords.join("<br>");
+document.getElementById('wrongList').innerHTML=wrongWords.map((w,i)=>(i+1)+'. '+w).join('<br>');
 }
 }
-</script>
-</body>
-</html>
+</script></body></html>
