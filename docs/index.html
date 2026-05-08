@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Adam Spelling Bee</title>
-
 <style>
 body{font-family:Arial,sans-serif;background:#f4f4f4;text-align:center;padding:20px}
 .container{max-width:900px;margin:auto;background:white;padding:20px;border-radius:20px;box-shadow:0 0 10px rgba(0,0,0,.1)}
@@ -22,7 +21,6 @@ button{padding:12px 20px;margin:8px;font-size:20px;border:none;border-radius:10p
 #wrongWords{margin-top:30px;background:#fff0f0;padding:20px;border-radius:15px;text-align:left}
 #wrongList{font-size:22px;line-height:1.8}
 </style>
-
 </head>
 <body>
 <div class="container">
@@ -87,7 +85,102 @@ Transport
 Election
 Perhaps
 Advance
-Identify</textarea>
+Identify
+Robotics
+Waterproof
+Kingdom
+Blindfold
+Spotlight
+Familiar
+Broccoli
+Scheme
+Yogurt
+Macaroni
+Washable
+Primary
+Electric
+Various
+Personal
+Average
+Conduct
+Bilingual
+Maintain
+Ourselves
+Thermometer
+Temperature
+Current
+Digestive
+Carnivore
+Herbivore
+Evaporation
+Population
+Imagination
+Hibernation
+Manuscript
+Acknowledge
+Central
+Chuckle
+Unfortunately
+Earthquake
+Pitcher
+Particle
+Cartridge
+Academic
+Caution
+Bridges
+Vitamin
+Calculation
+Engineer
+Technology
+Electricity
+Generate
+Parallel
+University
+Lightning
+Figures
+Swelling
+Available
+Disposable
+Syllable
+Mysteries
+Argument
+Interaction
+Multiplication
+Camouflage
+Predator
+Nightmare
+Signature
+Furniture
+Departure
+Continent
+Architecture
+Leisure
+Iceberg
+Courage
+Currency
+Landscape
+Probably
+Dimension
+Purchase
+Ornament
+Quantity
+Although
+Invitation
+Increase
+Stretched
+Suggest
+Adoption
+Immature
+Corruption
+Affection
+Construction
+Profession
+Inspection
+Staircase
+Burden
+Surgeon
+Merchant
+Generalize</textarea>
 
 <br><br>
 
@@ -122,7 +215,6 @@ Identify</textarea>
 </div>
 
 <script>
-
 let words = [];
 let remainingWords = [];
 let currentWord = "";
@@ -145,8 +237,6 @@ correct = 0;
 wrong = 0;
 wrongWords = [];
 paused = false;
-
-document.getElementById("pauseBtn").innerText = "⏸ Pause";
 
 updateScore();
 updateWrongList();
@@ -173,7 +263,6 @@ updateScore();
 speakWord();
 startTimer();
 }
-
 
 function skipWord(){
 remainingWords.push(currentWord);
@@ -220,12 +309,11 @@ nextWord();
 }
 
 function togglePause(){
-
 paused = !paused;
 
 if(paused){
 document.getElementById("pauseBtn").innerText = "▶ Continue";
-}else{
+} else {
 document.getElementById("pauseBtn").innerText = "⏸ Pause";
 }
 }
@@ -259,7 +347,6 @@ document.getElementById("wrongList").innerText = "No mistakes yet";
 document.getElementById("wrongList").innerHTML = wrongWords.join("<br>");
 }
 }
-
 </script>
 </body>
 </html>
