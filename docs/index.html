@@ -3,89 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Round Two Spelling Bee</title>
+<title>Adam Spelling Bee</title>
 
 <style>
-body{
-font-family:Arial,sans-serif;
-background:#f4f4f4;
-text-align:center;
-padding:20px;
-}
-
-.container{
-max-width:900px;
-margin:auto;
-background:white;
-padding:20px;
-border-radius:20px;
-box-shadow:0 0 10px rgba(0,0,0,.1);
-}
-
-textarea{
-width:100%;
-height:320px;
-font-size:18px;
-padding:10px;
-}
-
-button{
-padding:12px 20px;
-margin:8px;
-font-size:20px;
-border:none;
-border-radius:10px;
-cursor:pointer;
-}
-
+body{font-family:Arial,sans-serif;background:#f4f4f4;text-align:center;padding:20px}
+.container{max-width:900px;margin:auto;background:white;padding:20px;border-radius:20px;box-shadow:0 0 10px rgba(0,0,0,.1)}
+textarea{width:100%;height:320px;font-size:18px;padding:10px}
+button{padding:12px 20px;margin:8px;font-size:20px;border:none;border-radius:10px;cursor:pointer}
 .start{background:#007aff;color:white}
 .correct{background:#34c759;color:white}
 .wrong{background:#ff3b30;color:white}
 .speak{background:#5856d6;color:white}
 .next{background:#ff9500;color:white}
-
-#wordBox{
-font-size:60px;
-font-weight:bold;
-margin:25px;
-padding:35px;
-background:#eee;
-border-radius:20px;
-letter-spacing:2px;
-min-height:80px;
-}
-
-#timer{
-font-size:40px;
-color:#ff3b30;
-margin:20px;
-}
-
-.score{
-font-size:26px;
-margin-top:20px;
-}
-
-#wrongWords{
-margin-top:30px;
-background:#fff0f0;
-padding:20px;
-border-radius:15px;
-text-align:left;
-}
-
-#wrongList{
-font-size:22px;
-line-height:1.8;
-}
+.pause{background:#444;color:white}
+#wordBox{font-size:60px;font-weight:bold;margin:25px;padding:35px;background:#eee;border-radius:20px;letter-spacing:2px;min-height:80px}
+#timer{font-size:40px;color:#ff3b30;margin:20px}
+.score{font-size:26px;margin-top:20px}
+#wrongWords{margin-top:30px;background:#fff0f0;padding:20px;border-radius:15px;text-align:left}
+#wrongList{font-size:22px;line-height:1.8}
 </style>
+
 </head>
-
 <body>
-
 <div class="container">
-
-<h1>🎤 Round Two Spelling Bee</h1>
+<h1>🎤 Adam Spelling Bee</h1>
 
 <textarea id="words">Hexagon
 Vegetables
@@ -146,107 +87,12 @@ Transport
 Election
 Perhaps
 Advance
-Identify
-Robotics
-Waterproof
-Kingdom
-Blindfold
-Spotlight
-Familiar
-Broccoli
-Scheme
-Yogurt
-Macaroni
-Washable
-Primary
-Electric
-Various
-Personal
-Average
-Conduct
-Bilingual
-Maintain
-Ourselves
-Thermometer
-Temperature
-Current
-Digestive
-Carnivore
-Herbivore
-Evaporation
-Population
-Imagination
-Hibernation
-Manuscript
-Acknowledge
-Central
-Chuckle
-Unfortunately
-Earthquake
-Pitcher
-Particle
-Cartridge
-Academic
-Caution
-Bridges
-Vitamin
-Calculation
-Engineer
-Technology
-Electricity
-Generate
-Parallel
-University
-Lightning
-Figures
-Swelling
-Available
-Disposable
-Syllable
-Mysteries
-Argument
-Interaction
-Multiplication
-Camouflage
-Predator
-Nightmare
-Signature
-Furniture
-Departure
-Continent
-Architecture
-Leisure
-Iceberg
-Courage
-Currency
-Landscape
-Probably
-Dimension
-Purchase
-Ornament
-Quantity
-Although
-Invitation
-Increase
-Stretched
-Suggest
-Adoption
-Immature
-Corruption
-Affection
-Construction
-Profession
-Inspection
-Staircase
-Burden
-Surgeon
-Merchant
-Generalize</textarea>
+Identify</textarea>
 
 <br><br>
 
 <label>Timer per word:</label>
-<input type="number" id="timeInput" value="7">
+<input type="number" id="timeInput" value="10">
 
 <br><br>
 
@@ -257,9 +103,10 @@ Generalize</textarea>
 <div id="timer">⏳ 0</div>
 
 <button class="speak" onclick="speakWord()">🔊 Repeat</button>
+<button class="pause" id="pauseBtn" onclick="togglePause()">⏸ Pause</button>
 <button class="correct" onclick="markCorrect()">✅ Correct</button>
 <button class="wrong" onclick="markWrong()">❌ Wrong</button>
-<button class="next" onclick="nextWord()">➡️ Skip</button>
+<button class="next" onclick="skipWord()">🔁 Skip For Later</button>
 
 <div class="score">
 ✅ Correct: <span id="correctCount">0</span><br>
@@ -275,15 +122,16 @@ Generalize</textarea>
 </div>
 
 <script>
+
 let words = [];
 let remainingWords = [];
 let currentWord = "";
 let timer;
 let timeLeft = 0;
-
 let correct = 0;
 let wrong = 0;
 let wrongWords = [];
+let paused = false;
 
 function startGame(){
 words = document.getElementById("words").value
@@ -296,6 +144,9 @@ remainingWords = [...words];
 correct = 0;
 wrong = 0;
 wrongWords = [];
+paused = false;
+
+document.getElementById("pauseBtn").innerText = "⏸ Pause";
 
 updateScore();
 updateWrongList();
@@ -313,18 +164,20 @@ return;
 }
 
 let randomIndex = Math.floor(Math.random() * remainingWords.length);
-
 currentWord = remainingWords[randomIndex];
-
 remainingWords.splice(randomIndex,1);
 
 document.getElementById("wordBox").innerText = currentWord;
 
 updateScore();
-
 speakWord();
-
 startTimer();
+}
+
+
+function skipWord(){
+remainingWords.push(currentWord);
+nextWord();
 }
 
 function speakWord(){
@@ -338,20 +191,43 @@ speechSynthesis.speak(utterance);
 }
 
 function startTimer(){
-timeLeft = parseInt(document.getElementById("timeInput").value);
+paused = false;
+document.getElementById("pauseBtn").innerText = "⏸ Pause";
 
+timeLeft = parseInt(document.getElementById("timeInput").value);
 document.getElementById("timer").innerText = "⏳ " + timeLeft;
 
 timer = setInterval(() => {
-timeLeft--;
 
+if(paused) return;
+
+timeLeft--;
 document.getElementById("timer").innerText = "⏳ " + timeLeft;
 
 if(timeLeft <= 0){
 clearInterval(timer);
-alert("Time is up!\nWord was: " + currentWord);
+
+wrong++;
+wrongWords.push(currentWord);
+
+updateWrongList();
+updateScore();
+
+nextWord();
 }
+
 },1000);
+}
+
+function togglePause(){
+
+paused = !paused;
+
+if(paused){
+document.getElementById("pauseBtn").innerText = "▶ Continue";
+}else{
+document.getElementById("pauseBtn").innerText = "⏸ Pause";
+}
 }
 
 function markCorrect(){
@@ -362,7 +238,6 @@ nextWord();
 
 function markWrong(){
 wrong++;
-
 wrongWords.push(currentWord);
 
 updateWrongList();
@@ -380,11 +255,11 @@ document.getElementById("remainingCount").innerText = remainingWords.length;
 function updateWrongList(){
 if(wrongWords.length === 0){
 document.getElementById("wrongList").innerText = "No mistakes yet";
-} else {
+}else{
 document.getElementById("wrongList").innerHTML = wrongWords.join("<br>");
 }
 }
-</script>
 
+</script>
 </body>
 </html>
